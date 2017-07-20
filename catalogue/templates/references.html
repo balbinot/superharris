@@ -2,6 +2,7 @@
 {% load static %}
 {% load staticfiles %}
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
 <head>
@@ -21,18 +22,18 @@
   <h1>Surrey Globular Cluster Archive </h1>
   <h2>A web-based archive for the best objects in the Universe</h2>
   <ul>
-    <li><a href="../references/"><span>References</span></a></li>
+    <<li><a href="../references/"><span>References</span></a></li>
   </ul>
 
 </div>
-    <div class="col1">
+<div class="colmask rightmenu">
       <!-- Column 1 start -->
-      <h2>Observations</h2>
-      {% render_table observations %}
+      <h2>References</h2>
+      {% render_table references %}
       <!-- Column 1 end -->
-    </div>
+</div>
 <div id="footer">
-  <p>This is the footer </p.
+  <p>This is the footer </p>
 
 </body>
 </html>
