@@ -14,19 +14,33 @@ class ObservationTable(tables.Table):
 def index(request):
 #    table = ObservationTable(Observation.objects.all())
 #    table.paginate(paginate=False)
-    return render(request, 'index.html', {'observations': Observation.objects.all(), 'references': Reference.objects.all()})
+    return render(request, 'index.html', {'observations': Observation.objects.all()})
 
 
 def references(request):
-#    table = ObservationTable(Observation.objects.all())
-#    table.paginate(paginate=False)
     return render(request, 'references.html', {'references': Reference.objects.all()})
 
 
 def detail(request, cluster_id_id):
     cluster = get_object_or_404(GlobularCluster, pk=cluster_id_id)
-    return render(request, 'detail.html', {'observations': Observation.objects.filter(cluster_id=cluster)})
+    return render(request, 'detail.html', {'observations': Observation.objects.filter(cluster_id=cluster), 'cluster' : cluster})
 
 
+def view1(request):
+#    table = ObservationTable(Observation.objects.all())
+#    table.paginate(paginate=False)
+    return render(request, 'view1.html')
+
+
+def view2(request):
+#    table = ObservationTable(Observation.objects.all())
+#    table.paginate(paginate=False)
+    return render(request, 'view2.html')
+
+
+def view3(request):
+#    table = ObservationTable(Observation.objects.all())
+#    table.paginate(paginate=False)
+    return render(request, 'view3.html')
 
 
