@@ -68,3 +68,9 @@
   margin-bottom: 7px;
   margin-top: 10px
 }
+
+label {
+  margin-left: 2em;
+  margin-right: 1em;
+  margin-top: 1em;
+}
