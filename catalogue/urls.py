@@ -6,7 +6,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^GCID(?P<cluster_id_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^references/$', views.references, name='references'),
-    url(r'^view1/$', views.view1, name='view1'),
-    url(r'^view2/$', views.view2, name='view2'),
-    url(r'^view3/$', views.view3, name='view3'),
+    url(r'^Coordinates_harris2010/$', views.Harris_2010_coordinates, name='Harris_2010_coordinates'),
+    url(r'^Metallicity_harris2010/$', views.Harris_2010_metallicity, name='Harris_2010_metallicity'),
+    url(r'^Velocities_harris2010/$', views.Harris_2010_velocities, name='Harris_2010_velocities'),
 ]
