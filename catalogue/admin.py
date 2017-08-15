@@ -5,4 +5,4 @@ from .models import *
 
 admin.site.register(Reference)
 admin.site.register(GlobularCluster)
-admin.site.register(Observation)
+admin.site.register(AllObservation)
