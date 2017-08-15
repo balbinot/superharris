@@ -12,6 +12,11 @@ class ObservationTable(tables.Table):
         model = AllObservation
         exclude = ('id', 'cluster_id')
 
+class ReferenceTable(tables.Table):
+    class Meta:
+        model = Reference
+        exclude = ('id',)
+
 class CoordinateTable(tables.Table):
     class Meta:
         model = AllObservation
@@ -33,7 +38,8 @@ def index(request):
 
 
 def references(request):
-    return render(request, 'references.html', {'references': Reference.objects.all()})
+    table = ReferenceTable(Reference.objects.all())
+    return render(request, 'references.html', {'references': table})
 
 
 def detail(request, cluster_id_id):
