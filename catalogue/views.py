@@ -14,6 +14,7 @@ class ObservationTable(tables.Table):
         exclude = ('id', 'cluster_id')
 
 class ReferenceTable(tables.Table):
+    doi = tables.URLColumn()
     class Meta:
         model = Reference
         exclude = ('id',)

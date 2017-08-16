@@ -24,8 +24,6 @@ class Reference(models.Model):
         s = ''
         if self.name:
             s += self.name
-        if self.doi:
-            s += '(doi:{})'.format(self.doi)
         return s
 
 class AllObservation(models.Model):
@@ -111,4 +109,5 @@ class AllObservation(models.Model):
     def __str__(self):
         s = '{} - Ref : {}'.format(str(self.cluster_id), str(self.ref))
         return s
+
 
