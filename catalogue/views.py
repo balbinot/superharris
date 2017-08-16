@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from catalogue.models import GlobularCluster, AllObservation, Reference
 import django_tables2 as tables
 from django.shortcuts import get_object_or_404, render
+from django_tables2.utils import A  # alias for Accessor
 
 class ObservationTable(tables.Table):
     class Meta:
@@ -16,6 +17,13 @@ class ReferenceTable(tables.Table):
     class Meta:
         model = Reference
         exclude = ('id',)
+
+class GeneralTable(tables.Table):
+    cluster_id = tables.LinkColumn('detail', args=[A('pk')])
+    class Meta:
+        model = AllObservation
+        exclude = ('id', 'ref')
+
 
 class CoordinateTable(tables.Table):
     class Meta:
@@ -34,13 +42,14 @@ class OtherTable(tables.Table):
 
 
 def index(request):
-    return render(request, 'index.html', {'observations': AllObservation.objects.all()})
+    reference =  get_object_or_404(Reference, pk=2)
+    table = GeneralTable(AllObservation.objects.filter(ref=reference))
+    return render(request, 'index.html', {'observations': table})
 
 
 def references(request):
     table = ReferenceTable(Reference.objects.all())
     return render(request, 'references.html', {'references': table})
-
 
 def detail(request, cluster_id_id):
     cluster = get_object_or_404(GlobularCluster, pk=cluster_id_id)
