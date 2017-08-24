@@ -1,45 +1,44 @@
+{% extends "base.html" %}
 {% load static %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
+{% block content %}
+{% load bootstrap_tags %}
+{% load crispy_forms_tags %}
+
+
 
 <head>
-    <link type="text/css" rel="stylesheet" href="{% static 'submit.css' %}" />
-    <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
-    <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'submit.css' %}">
 </head>
 
-<body>
-  <div id="header">
-    <h1>Surrey Globular Cluster Archive </h1>
-    <h2>A web-based archive for the best objects in the Universe</h2>
-    <ul>
-      <li><a href="."><span>Home</span></a></li>
-      <li><a href="view1"><span>Specific set of paramters 1</span></a></li>
-      <li><a href="view2"><span>Specific set of paramters 2</span></a></li>
-      <li><a href="view3"><span>Specific set of paramters 3</span></a></li>
-      <li><a href="references/"><span>References</span></a></li>
-      {% if user.is_authenticated %}
-      <li><a href="submit/"><span>Submit observation</span></a></li>
-      <li><a href="logout/"><span>Log out</span></a></li>
-      {% else %}
-      <li><a href="login/"><span>Log in</span></a></li>
-      <li><a href="register/"><span>Register</span></a></li>
-      {% endif %}
-    </ul>
-<div id="input">
-  <div class="container">
-    <form id=submit_form action="../submit/" method="post" class="form-inline" role="form">
+<div class="container-fluid">
+  <h4>Submit an observation:</h4>
+</div>
 
+<div id="input">
+  <div class="container-fluid">
+    <form id=submit_form method="post" class="form-inline" role="form">     {% csrf_token %}
+      <div class = "container">
+      <div class = "row">
+      {% crispy form %}
+      </div>
+      </div>
       <div class="control-group">
         <div class="controls controls-row row-fluid">
-          <label class="control-label" for="cluster_id">Cluster id</label>
-          <input type="text" id="cluster_id" placeholder="Enter here">
+          <div class="form-group">
+            <label for="cluster_id">Cluster id</label>
+            <select class="form-control" id="selectCluster" placeholder="Select here">
+              <option value="" disabled selected>Select here</option>
+              <option for="NGC 6656">NGC 6656</option>
+              <option for="NGC 6342">NGC 6342</option>
+              <option for="NGC 6652">NGC 6652</option>
+            </select>
+          </div>
+          <!--<label class="control-label" for="cluster_id">Cluster id</label>
+          <input type="text" id="cluster_id" placeholder="Enter here"> -->
           <label class="control-label" for="name">Alternative names</label>
           <input type="text" id="name" placeholder="Enter here">
         </div>
-      </div>
 
       <div class="control-group">
         <div class="controls controls-row row-fluid">
@@ -138,18 +137,17 @@
         </div>
       </div>
 
-      <div class="control-group">
-        <div class="controls controls-row row-fluid">
-            <label class="control-label">Zip</label><input type="text" class="span4" placeholder="Zip" />
-            <label class="control-label">Zip</label><input type="text" class="span4" placeholder="City" />
-        </div>
+      <div class="cnotrol-group">
+        <label for="comment">Additional comments:</label>
+        <textarea class="form-control" rows="5" id="comment"></textarea>
       </div>
 
-
       <div id="button" class="container">
-        <input class="btn btn-default btn-inverse" type="submit" value="Submit" />
+        <input class="btn btn-default btn-inverse" action="../submitted/" type="submit" value="Submit" />
       </div>
 
     </form>
   </div>
 </div>
+</div>
+{% endblock %}

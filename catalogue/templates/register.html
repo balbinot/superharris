@@ -1,30 +1,16 @@
-
+{% extends "base.html" %}
 {% load static %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html>
+{% block content %}
+
+
 
 {% block title %}User Registration{% endblock %}
 {% block head %}User Registration{% endblock %}
-{% block content %}
+
 <head>
     <link type="text/css" rel="stylesheet" href="{% static 'register.css' %}" />
 </head>
-
-<div id="header">
-  <h1>Surrey Globular Cluster Archive </h1>
-  <h2>A web-based archive for the best objects in the Universe</h2>
-  <ul>
-    <li><a href=".."><span>Home</span></a></li>
-    <li><a href="view1"><span>Specific set of paramters 1</span></a></li>
-    <li><a href="view2"><span>Specific set of paramters 2</span></a></li>
-    <li><a href="view3"><span>Specific set of paramters 3</span></a></li>
-    <li><a href="references/"><span>References</span></a></li>
-    <li><a href="register/"><span>Register</span></a></li>
-    <li><a href="login/"><span>Log in</span></a></li>
-  </ul>
-
-</div>
 
 <body>
   <p>Please enter a username, your email address and create a password.</p>
@@ -37,4 +23,3 @@
   </form>
 </body>
 {% endblock %}
-</html>
