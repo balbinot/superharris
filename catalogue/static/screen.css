@@ -1,10 +1,24 @@
+#banner {
+  width: 100%;
+  background-image: url(https://preview.ibb.co/j9T8sQ/scotland_1719084_1920.jpg);
+  height: 405px;
+  color: white;
+  background-size: cover;
+  text-align: center;
+}
+
+body { padding: 0; }
+
+h1 {
+  padding: 180px 0 0 0;
+}
 
 #table {
   color: black;
   font-size: 14px;
   width: auto;
   text-align: center;
-  border-top: 1px solid #c2c2d6;
+  /*border-top: 1px solid #c2c2d6;*/
 }
 
 th, td {

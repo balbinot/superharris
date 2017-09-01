@@ -82,43 +82,32 @@ class Observation(models.Model):
         return s
 
 class Submitted(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+
     cluster_id = models.ForeignKey(GlobularCluster, on_delete=models.CASCADE)
-    name = models.CharField('Alternative names', max_length=64, null=True,
-                            blank=True)
-    ra = models.FloatField('Right ascension [degree]', null=True,
-                                  blank=True)
-    dec = models.FloatField('Declinations [degree]', null=True,
-                                    blank=True)
+    name = models.CharField('Alternative names', max_length=64, null=True, blank=True)
+    ra = models.FloatField('Right ascension [degree]', null=True, blank=True)
+    dec = models.FloatField('Declinations [degree]', null=True, blank=True)
     gallon = models.FloatField('Longitude [degree]', null=True, blank=True)
     gallat = models.FloatField('Latitude [degree]', null=True, blank=True)
-    dfs       = models.FloatField('Distance from the sun [kpc]', null=True,
-                                  blank=True)
+    dfs       = models.FloatField('Distance from the sun [kpc]', null=True, blank=True)
     metallicity = models.FloatField('Metallicity', null=True, blank=True)
-    w_mean_met  = models.FloatField('Weight of mean metallicity', null=True,
-                                    blank=True)
+    w_mean_met  = models.FloatField('Weight of mean metallicity', null=True, blank=True)
     m_v_t = models.FloatField('Cluster luminosity', null=True, blank=True)
     ph_u_b = models.FloatField('U-B', null=True, blank=True)
     ph_b_v = models.FloatField('B-V', null=True, blank=True)
     ph_v_r = models.FloatField('V-R', null=True, blank=True)
     ph_v_i = models.FloatField('V-I', null=True, blank=True)
-    ellipticity = models.FloatField('Projected ellipticity of isophotes',
-                                    null=True, blank=True)
-    v_r = models.FloatField('Heliocentric radial velocity [km/s]', null=True,
-                                   blank=True)
+    ellipticity = models.FloatField('Projected ellipticity of isophotes', null=True, blank=True)
+    v_r = models.FloatField('Heliocentric radial velocity [km/s]', null=True, blank=True)
     sig_v = models.FloatField('Velocity dispersion [km/s]', null=True, blank=True)
-    sig_err = models.FloatField('Observational uncertainty [km/s]', null=True,
-                                   blank=True)
-    sp_c = models.FloatField('King-model central concentration',
-                                      null=True, blank=True)
+    sig_err = models.FloatField('Observational uncertainty [km/s]', null=True, blank=True)
+    sp_c = models.FloatField('King-model central concentration', null=True, blank=True)
     sp_r_c = models.FloatField('Core radius', null=True, blank=True)
-    sp_r_h = models.FloatField('Half-light radius', null=True,
-                                      blank=True)
-    sp_mu_V = models.FloatField('Central surface brightness', null=True,
-                                      blank=True)
-    sp_rho_0 = models.FloatField('Central luminosity density', null=True,
-                                      blank=True)
-    comment = models.CharField('Additional comments', max_length=64, null=True,
-                                      blank=True)
+    sp_r_h = models.FloatField('Half-light radius', null=True, blank=True)
+    sp_mu_V = models.FloatField('Central surface brightness', null=True, blank=True)
+    sp_rho_0 = models.FloatField('Central luminosity density', null=True, blank=True)
+    comment = models.CharField('Additional comments', max_length=64, null=True, blank=True)
     def __str__(self):
         data = '{} - Ref : {}'.format(str(self.cluster_id), str(self.cluster_id))
         return data

@@ -3,7 +3,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
-<head>
+<head id="head">
   <title>Surrey GC archive</title>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
   <meta name="description" content=""/>
@@ -15,45 +15,69 @@
   <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
   <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="{% static 'screen.css' %}">
 </head>
-<body class="container-fluid">
-
-<div id="header">
-  {% if user.is_authenticated %}
-  <h1>Surrey Globular Cluster Archive </h1>
-  <h2>A web-based archive for the best objects in the Universe</h2>
-  <h3>Logged in as: {{ user.username }}!</h3>
-  {% else %}
-  <h1>Surrey Globular Cluster Archive </h1>
-  <h2>A web-based archive for the best objects in the Universe</h2>
-  {% endif %}
-</div>
-<div id="navbar">
-  <nav class="navbar navbar-default">
+<!--<body class="container-fluid">-->
+<body>
+<div>
+  <div id="banner">
     <div class="container-fluid">
+      {% if user.is_authenticated %}
+      <h1>Surrey Globular Cluster Archive </h1>
+      <h2>A web-based archive for the best objects in the Universe</h2>
+      <h3>Logged in as: {{ user.username }}!</h3>
+      {% else %}
+      <h1>Surrey Globular Cluster Archive </h1>
+      <h2>A web-based archive for the best objects in the Universe</h2>
+      {% endif %}
+    </div>
+  </div>
+<div class="container-fluid">
+<div id="navbar">
+  <nav class="navbar navbar-inverse navbar-default">
       <ul class="nav navbar-nav">
         <li><a href="/catalogue/">Home</a></li>
-        <li><a href="/catalogue/view1">Specific set of paramters 1</a></li>
-        <li><a href="/catalogue/view2">Specific set of paramters 2</a></li>
-        <li><a href="/catalogue/view3">Specific set of paramters 3</a></li>
-        <li><a href="/catalogue/references/">References</a></li>
+
+        <li class="{% if 'view1' in request.path %}active{% endif %}"
+        ><a href="/catalogue/view1">Specific set of paramters 1</a></li>
+
+        <li class="{% if 'view2' in request.path %}active{% endif %}"
+        ><a href="/catalogue/view2">Specific set of paramters 2</a></li>
+
+        <li class="{% if 'view3' in request.path %}active{% endif %}"
+        ><a href="/catalogue/view3">Specific set of paramters 3</a></li>
+
+        <li class="{% if 'references' in request.path %}active{% endif %}"
+        ><a href="/catalogue/references/">References</a></li>
+
         {% if user.is_authenticated %}
-        <li><a href="/catalogue/submit/">Submit observation</a></li>
-        <li><a href="/catalogue/logout/">Log out</a></li>
+        <li class="{% if 'submit' in request.path %}active{% endif %}"
+        ><a href="/catalogue/submit/">Submit observation</a></li>
+
+        <li class="{% if 'account' in request.path %}active{% endif %}"
+        ><a href="/catalogue/account/">My Account</a></li>
+
+        <li class="{% if 'logout' in request.path %}active{% endif %}"
+        ><a href="/catalogue/logout/">Log out</a></li>
+
         {% else %}
-        <li><a href="/catalogue/login/">Log in</a></li>
-        <li><a href="/catalogue/register/">Register</a></li>
+        <li class="{% if 'login' in request.path %}active{% endif %}"
+        ><a href="/catalogue/login/">Log in</a></li>
+
+        <li class="{% if 'register' in request.path %}active{% endif %}"
+        ><a href="/catalogue/register/">Register</a></li>
         {% endif %}
+
       </ul>
-    </div>
   </nav>
 </div>
 {% block content %}{% endblock %}
 </body>
+</div>
 
 <div id="footer">
   <p>Notes: I have changed the style of the site a bit. The references now have their own view rather than being on the side of the home page. The home page will display all the clusters with their most accurate data, similar to how it is at the moment, but i still have a few structural changes in mind as well as aesthetic ones. The reference page won't be changed much aside from for aesthetic purposes. I have added an arbitrary number of views (3) for pages which will show a specific set of parameters from the cluster, as asked for. I haven't gone as far as to implement this just yet, so they are just placeholders for now. As mentioned, 3 is an arbitrary number, we can have as few or as many of these kind of views as is neccessary. I've also added a cluster specific view for each cluster, which can at the moment be found at the url catalogue/GCID*** where *** is the ID number of the cluster in the database (158-314). At the moment, this just shows the row from the table on the homepage associated with this cluster. Ideally, it will show several values of the different paramters for the cluster which have been obtained from different references. Finally, i've messed around with the css a bit but this is just for debugging and developing (e.g. adding the borders around everything). No CSS changes that i've made so far are intended to be permanent. Hope this helps!
  </p>
-
+</div>
 </html>

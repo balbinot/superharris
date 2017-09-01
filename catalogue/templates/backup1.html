@@ -1,0 +1,123 @@
+VIEWS
+
+def submit(request):
+    context = RequestContext(request)
+    if request.method == 'POST':
+        submit_form = SubmitForm(request.POST)
+        if form.is_valid():
+            model = Submitted()
+
+            cluster_name = request.POST['cluster']
+            cluster_id = [g for g in GC.objects.all() if g.cluster_id == cluster_name][0]
+            model.cluster_id = cluster_id
+            model.name = request.POST['name']
+            model.ra = request.POST['ra']
+            model.dec = request.POST['dec']
+            model.gallon = request.POST['gallon']
+            model.gallat = request.POST['gallat']
+            model.dfs = request.POST['dfs']
+            model.metallicity = request.POST['metallicity']
+            model.w_mean_met = request.POST['w_mean_met']
+            model.m_v_t = request.POST['m_v_t']
+            model.ph_u_b = request.POST['ph_u_b']
+            model.ph_b_v = request.POST['ph_b_v']
+            model.ph_v_r = request.POST['ph_v_r']
+            model.ph_v_i = request.POST['ph_v_i']
+            model.ellipticity = request.POST['ellipticity']
+            model.v_r = request.POST['v_r']
+            model.sig_v = request.POST['sig_v']
+            model.sig_err = request.POST['sig_err']
+            model.sp_c = request.POST['sp_c']
+            model.sp_r_c = request.POST['sp_r_c']
+            model.sp_r_h = request.POST['sp_r_h']
+            model.sp_mu_V = request.POST['sp_mu_V']
+            model.sp_rho_0 = request.POST['sp_rho_0']
+            model.comment = request.POST['comment']
+
+            model.save()
+            return HttpResponseRedirect('../submitted/')
+        else:
+            print('LALALA')
+            print(form.errors)
+
+    else:
+        submit_form = SubmitForm()
+    return render(request, 'submit.html', {'form': submit_form})
+
+
+FORMS
+
+class SubmitForm(forms.Form):
+    gcs = GC.objects.all()
+    drop_down_list = [(g, g.cluster_id) for g in gcs]
+    drop_down_list.sort(key=lambda x:x[1])
+
+    cluster = forms.ChoiceField(label = "Cluster ID", choices = drop_down_list, required = True)
+    name = forms.CharField(label = "Alternative names", max_length = 50, required = False)
+    ra = forms.CharField(label = "Right ascension", max_length = 50, required = False)
+    dec = forms.CharField(label = "Declination", max_length=50, required=False)
+    gallon = forms.CharField(label = "Longitude", max_length=50, required=False)
+    gallat = forms.CharField(label = "Latitude", max_length=50, required=False)
+    dfs = forms.CharField(label = "Distance from the sun", max_length=50, required=False)
+    metallicity = forms.CharField(label = "Metallicity", max_length=50, required=False)
+    w_mean_met = forms.CharField(label = "Weight of mean metallicity", max_length=50, required=False)
+    m_v_t = forms.CharField(label = "Cluster luminosity", max_length=50, required=False)
+    ph_u_b = forms.CharField(label = "U-B", max_length=50, required=False)
+    ph_b_v = forms.CharField(label = "B-V", max_length=50, required=False)
+    ph_v_r = forms.CharField(label = "V-R", max_length=50, required=False)
+    ph_v_i = forms.CharField(label = "V-I", max_length=50, required=False)
+    ellipticity = forms.CharField(label = "Projected ellipticity of isophotes", max_length=50, required=False)
+    v_r = forms.CharField(label = "Heliocentric radial velocity", max_length=50, required=False)
+    sig_v = forms.CharField(label = "Velocity dispersion", max_length=50, required=False)
+    sig_err = forms.CharField(label = "Observational uncertainty", max_length=50, required=False)
+    sp_c = forms.CharField(label = "King-model central concentration", max_length=50, required=False)
+    sp_r_c = forms.CharField(label = "Core radius", max_length=50, required=False)
+    sp_r_h = forms.CharField(label = "Half-light radius", max_length=50, required=False)
+    sp_mu_V = forms.CharField(label = "Central surface brightness", max_length=50, required=False)
+    sp_rho_0 = forms.CharField(label = "Central luminosity density", max_length=50, required=False)
+    comment = forms.CharField(label = "Additional comments", max_length=50, widget=forms.Textarea, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(SubmitForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-submitForm'
+        self.helper.form_class = 'blueForms'
+        self.helper.form_method = 'post'
+        self.helper.form_action = 'submit_survey'
+        self.helper.form_tag = False
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
+        #self.helper.wrapper_class = 'row'
+        #self.helper.label_class = 'col-md-2'
+        #self.helper.field_class = 'col-md-10'
+        self.helper.layout = Layout(
+            Field('cluster'),
+            Field('name', placeholder="Enter here"),
+            Field('ra', placeholder="Enter here"),
+            Field('dec', placeholder="Enter here"),
+            Field('gallon', placeholder="Enter here"),
+            Field('gallat', placeholder="Enter here"),
+            Field('dfs', placeholder="Enter here"),
+            Field('metallicity', placeholder="Enter here"),
+            Field('w_mean_met', placeholder="Enter here"),
+            Field('m_v_t', placeholder="Enter here"),
+            Field('ph_u_b', placeholder="Enter here"),
+            Field('ph_b_v', placeholder="Enter here"),
+            Field('ph_v_r', placeholder="Enter here"),
+            Field('ph_v_i', placeholder="Enter here"),
+            Field('ellipticity', placeholder="Enter here"),
+            Field('v_r', placeholder="Enter here"),
+            Field('sig_v', placeholder="Enter here"),
+            Field('sig_err', placeholder="Enter here"),
+            Field('sp_c', placeholder="Enter here"),
+            Field('sp_r_c', placeholder="Enter here"),
+            Field('sp_r_h', placeholder="Enter here"),
+            Field('sp_mu_V', placeholder="Enter here"),
+            Field('sp_rho_0', placeholder="Enter here"),
+            Field('comment'),
+            Field('', placeholder="Enter here"),
+            Field('', placeholder="Enter here"),
+
+        )
+        self.helper.add_input(Submit('submit', 'Submit'))

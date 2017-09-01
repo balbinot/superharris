@@ -99,7 +99,6 @@ def register(request):
       return HttpResponseRedirect('../registered/')
   else:
     form = RegistrationForm()
-
   return render(request, 'register.html', {'form': form})
 
 class SubmitView(FormView):
@@ -110,41 +109,54 @@ class SubmitView(FormView):
     def form_valid(self, form):
         return super(SubmitView, self).form_valid(form)
 
+def store_str(field, placeholder):
+    if field != '':
+        placeholder = field
+
+def store_float(field, placeholed):
+    if field != '':
+        placeholder = float(field)
+
+def store_int(field, placeholed):
+    if field != '':
+        placeholder = int(field)
 
 def submit(request):
-    context = RequestContext(request)
     if request.method == 'POST':
         form = SubmitForm(request.POST)
         if form.is_valid():
             model = Submitted()
 
+            p = request.POST
+
             cluster_name = request.POST['cluster']
             cluster_id = [g for g in GC.objects.all() if g.cluster_id == cluster_name][0]
             model.cluster_id = cluster_id
-            model.name = request.POST['name']
-            model.ra = request.POST['ra']
-            model.dec = request.POST['dec']
-            model.gallon = request.POST['gallon']
-            model.gallat = request.POST['gallat']
-            model.dfs = request.POST['dfs']
-            model.metallicity = request.POST['metallicity']
-            model.w_mean_met = request.POST['w_mean_met']
-            model.m_v_t = request.POST['m_v_t']
-            model.ph_u_b = request.POST['ph_u_b']
-            model.ph_b_v = request.POST['ph_b_v']
-            model.ph_v_r = request.POST['ph_v_r']
-            model.ph_v_i = request.POST['ph_v_i']
-            model.ellipticity = request.POST['ellipticity']
-            model.v_r = request.POST['v_r']
-            model.sig_v = request.POST['sig_v']
-            model.sig_err = request.POST['sig_err']
-            model.sp_c = request.POST['sp_c']
-            model.sp_r_c = request.POST['sp_r_c']
-            model.sp_r_h = request.POST['sp_r_h']
-            model.sp_mu_V = request.POST['sp_mu_V']
-            model.sp_rho_0 = request.POST['sp_rho_0']
-            model.comment = request.POST['comment']
 
+            store_str(p['name'], model.name)
+            store_float(p['ra'], model.ra)
+            store_float(p['dec'], model.dec)
+            store_float(p['gallon'], model.gallon)
+            store_float(p['gallat'], model.gallat)
+            store_float(p['dfs'], model.dfs)
+            store_float(p['metallicity'], model.metallicity)
+            store_float(p['w_mean_met'], model.w_mean_met)
+            store_float(p['m_v_t'], model.m_v_t)
+            store_float(p['ph_u_b'], model.ph_u_b)
+            store_float(p['ph_b_v'], model.ph_b_v)
+            store_float(p['ph_v_r'], model.ph_v_r)
+            store_float(p['ph_v_i'], model.ph_v_i)
+            store_float(p['ellipticity'], model.ellipticity)
+            store_float(p['v_r'], model.v_r)
+            store_float(p['sig_v'], model.sig_v)
+            store_float(p['sig_err'], model.sig_err)
+            store_float(p['sp_c'], model.sp_c)
+            store_float(p['sp_r_c'], model.sp_r_c)
+            store_float(p['sp_r_h'], model.sp_r_h)
+            store_float(p['sp_mu_V'], model.sp_mu_V)
+            store_float(p['sp_rho_0'], model.sp_rho_0)
+
+            model.comment = request.POST['comment']
             model.save()
             return HttpResponseRedirect('../submitted/')
         else:
