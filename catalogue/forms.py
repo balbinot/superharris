@@ -90,6 +90,7 @@ class SubmitForm(forms.Form):
     sp_rho_0 = forms.CharField(label = "Central luminosity density", max_length=50, required=False)
     comment = forms.CharField(label = "Additional comments", max_length=50, widget=forms.Textarea, required=False)
 
+
     def __init__(self, *args, **kwargs):
         super(SubmitForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -104,7 +105,7 @@ class SubmitForm(forms.Form):
         self.fields['dec'].widget.attrs['placeholder'] = u'Enter here [degrees]'
         self.fields['gallon'].widget.attrs['placeholder'] = u'Enter here [degrees]'
         self.fields['gallat'].widget.attrs['placeholder'] = u'Enter here [degrees]'
-        self.fields['dfs'].widget.attrs['placeholder'] = u'Enter here [degrees]'
+        self.fields['dfs'].widget.attrs['placeholder'] = u'Enter here[kpc]'
         self.fields['metallicity'].widget.attrs['placeholder'] = u'Enter here'
         self.fields['w_mean_met'].widget.attrs['placeholder'] = u'Enter here'
         self.fields['m_v_t'].widget.attrs['placeholder'] = u'Enter here'

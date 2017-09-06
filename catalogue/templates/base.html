@@ -52,6 +52,21 @@
         ><a href="/catalogue/references/">References</a></li>
 
         {% if user.is_authenticated %}
+        <!--
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              My Account
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><a href="/catalogue/submit/">Submit observation</a></li>
+              <li><a href="/catalogue/account/">Submitted observations</a></li>
+              <li><a href="/catalogue/logout/">Log out</a></li>
+            </ul>
+          </div>
+        </li>
+      ``-->
         <li class="{% if 'submit' in request.path %}active{% endif %}"
         ><a href="/catalogue/submit/">Submit observation</a></li>
 

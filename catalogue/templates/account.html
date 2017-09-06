@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+{% load static %}
+{% load staticfiles %}
+{% block content %}
+
+<h3>View your submitted observations below:</h3>
+
+<style>
+#user_table {
+  column-gap: 400px;
+  position:relative;
+  overflow:auto;
+}
+</style>
+
+<div class="col1">
+  <!-- Column 1 start -->
+  <div id="user_table"> {% render_table user_observations %} </div>
+  <!-- Column 1 end -->
+</div>
+
+
+{% endblock %}

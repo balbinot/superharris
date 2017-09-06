@@ -1,8 +1,8 @@
 #-*- coding: utf-8 -*-
-
 from __future__ import unicode_literals
-
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -82,8 +82,9 @@ class Observation(models.Model):
         return s
 
 class Submitted(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
 
+    created_by = models.ForeignKey(User, null=True, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     cluster_id = models.ForeignKey(GlobularCluster, on_delete=models.CASCADE)
     name = models.CharField('Alternative names', max_length=64, null=True, blank=True)
     ra = models.FloatField('Right ascension [degree]', null=True, blank=True)
