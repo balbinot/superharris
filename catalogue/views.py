@@ -15,16 +15,25 @@ class ObservationTable(tables.Table):
 
 class ReferenceTable(tables.Table):
     doi = tables.URLColumn()
+    ads = tables.URLColumn()
+    name = tables.LinkColumn('ref_detail', args=[A('pk')])
+    pub_date = tables.DateColumn()
     class Meta:
         model = Reference
         exclude = ('id',)
+
+class HarrisTable(tables.Table):
+    cluster_id = tables.LinkColumn('detail', args=[A('pk')])
+    reference =  get_object_or_404(Reference, pk=2)
+    class Meta:
+        model = AllObservation
+        exclude = ('id', 'ref')
 
 class GeneralTable(tables.Table):
     cluster_id = tables.LinkColumn('detail', args=[A('pk')])
     class Meta:
         model = AllObservation
         exclude = ('id', 'ref')
-
 
 class CoordinateTable(tables.Table):
     class Meta:
@@ -44,7 +53,7 @@ class OtherTable(tables.Table):
 
 def index(request):
     reference =  get_object_or_404(Reference, pk=2)
-    table = GeneralTable(AllObservation.objects.filter(ref=reference))
+    table = HarrisTable(AllObservation.objects.filter(ref=reference))
     return render(request, 'index.html', {'observations': table})
 
 
@@ -57,6 +66,10 @@ def detail(request, cluster_id_id):
     table = ObservationTable(AllObservation.objects.filter(cluster_id=cluster))
     return render(request, 'detail.html', {'observations': table, 'cluster' : cluster})
 
+def ref_detail(request, name_id):
+    reference = get_object_or_404(Reference, pk=name_id)
+    table = GeneralTable(AllObservation.objects.filter(ref=reference))
+    return render(request, 'ref_detail.html', {'references': table, 'reference' : reference})
 
 def Harris_2010_coordinates(request):
      reference =  get_object_or_404(Reference, pk=2)
