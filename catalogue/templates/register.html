@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+
+{% block title %}User Registration{% endblock %}
+{% block head %}User Registration{% endblock %}
+
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <p>Please enter a username, your email address and create a password.</p>
+  <p>Your username should only contain alphanumeric characters.</p>
+  <!--<form method="post" action="." enctype="multipart/form-data" >-->
+    <div class="container">
+      <div class="row">
+        {% csrf_token %}
+
+        {% crispy form %}
+      </div>
+    </div>
+    <input type="submit" value="register" />
+  </form>
+</body>
+{% endblock %}

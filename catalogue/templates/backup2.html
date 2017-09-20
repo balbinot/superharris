@@ -1,0 +1,131 @@
+  <!--  <form id=submit_form method="post" class="form-inline" role="form"> --> 
+
+
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <div class="form-group">
+            <label for="cluster_id">Cluster id</label>
+            <select class="form-control" id="selectCluster" placeholder="Select here">
+              <option value="" disabled selected>Select here</option>
+              <option for="NGC 6656">NGC 6656</option>
+              <option for="NGC 6342">NGC 6342</option>
+              <option for="NGC 6652">NGC 6652</option>
+            </select>
+          </div>
+          <!--<label class="control-label" for="cluster_id">Cluster id</label>
+          <input type="text" id="cluster_id" placeholder="Enter here"> -->
+          <label class="control-label" for="name">Alternative names</label>
+          <input type="text" id="name" placeholder="Enter here">
+        </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="ra">Right ascension</label>
+          <input type="text" id="ra" placeholder="Enter here [degrees]">
+          <label class="control-label" for="dec">Declination</label>
+          <input type="text" id="dec" placeholder="Enter here [degrees]">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="gallon">Longitude</label>
+          <input type="text" id="gallon" placeholder="Enter here [degrees]">
+          <label class="control-label" for="gallat">Latitude</label>
+          <input type="text" id="gallat" placeholder="Enter here [degrees]">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="dfs">Distance from the sun</label>
+          <input type="text" id="dfs" placeholder="Enter here [degrees]">
+          <label class="control-label" for="metallicity">Metallicity</label>
+          <input type="text" id="metallicity" placeholder="Enter here">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="w_mean_met">Weight of mean metallicity</label>
+          <input type="text" id="w_mean_met" placeholder="Enter here">
+          <label class="control-label" for="m_v_t">Cluster luminosity</label>
+          <input type="text" id="m_v_t" placeholder="Enter here">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="ph_u_b">U-B</label>
+          <input type="text" id="ph_u_b" placeholder="Enter here">
+          <label class="control-label" for="ph_b_v">B-V</label>
+          <input type="text" id="ph_b_v" placeholder="Enter here">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="ph_v_r">V-R</label>
+          <input type="text" id="ph_v_r" placeholder="Enter here">
+          <label class="control-label" for="ph_v_i">V-I</label>
+          <input type="text" id="ph_v_i" placeholder="Enter here">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="ellipticity">Projected ellipticity of isophotes</label>
+          <input type="text" id="ellipticity" placeholder="Enter here">
+          <label class="control-label" for="v_r">Heliocentric radial velocity</label>
+          <input type="text" id="v_r" placeholder="Enter here [km/s]">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="sig_v">Velocity dispersion</label>
+          <input type="text" id="sig_v" placeholder="Enter here [km/s]">
+          <label class="control-label" for="sig_err">Observational uncertainty</label>
+          <input type="text" id="sig_err" placeholder="Enter here [km/s]">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="sp_c">King-model central concentration</label>
+          <input type="text" id="sp_c" placeholder="Enter here">
+          <label class="control-label" for="sp_r_c">Core radius</label>
+          <input type="text" id="sp_r_c" placeholder="Enter here">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="sp_r_h">Half-light radius</label>
+          <input type="text" id="sp_r_h" placeholder="Enter here">
+          <label class="control-label" for="sp_mu_V">Central surface brightness</label>
+          <input type="text" id="sp_mu_V" placeholder="Enter here">
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls controls-row row-fluid">
+          <label class="control-label" for="sp_rho_0">Central luminosity density</label>
+          <input type="text" id="sp_rho_0" placeholder="Enter here">
+        </div>
+      </div>
+
+      <div class="cnotrol-group">
+        <label for="comment">Additional comments:</label>
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+      </div>
+
+      <div id="button" class="container">
+        <input class="btn btn-default btn-inverse" action="../submitted/" type="submit" value="Submit" />
+      </div>
+
+    </form>
+  </div>
+</div>
+</div>
