@@ -7,10 +7,10 @@
 <div class="col1">
   <!-- Column 1 start -->
   <h2>Co-ordinate and Positional Data (Harris 1996 (2010 edition))</h2>
+  {% render_table coordinates %}
   <!-- Column 1 end -->
 </div>
 
-{% endblock %}
 <div id="footer">
   <p>From left to right: (All distances in Kpc)
 <br/>
@@ -22,3 +22,5 @@ Distance from Sun; <br/>
 Distance from Galactic center, assuming R_0=8.0; <br/>
 Galactic distance components X,Y,Z, in a Sun-centered coordinate system where X points toward Galactic center, Y in direction of Galactic rotation, Z toward North Galactic Pole.  </p>
 </div>
+
+{% endblock %}
