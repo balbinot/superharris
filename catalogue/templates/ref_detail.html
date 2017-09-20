@@ -1,0 +1,76 @@
+{% load render_table from django_tables2 %}
+{% load static %}
+{% load staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
+<head>
+  <title>Surrey GC archive</title>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+  <meta name="description" content=""/>
+  <meta name="keywords" content="" />
+  <meta name="robots" content="index, follow" />
+  <link rel="stylesheet" type="text/css" href="static/screen.css" media="screen" />
+  <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
+  <link rel="stylesheet" href="{% static 'screen.css' %}" />
+
+</head>
+<body>
+
+<div id="header">
+  <h1>Surrey Globular Cluster Archive </h1>
+  <h2>A web-based archive for the best objects in the Universe</h2>
+  <ul>
+    <li><a href="../../"><span>Home</span></a></li>
+    <li><a href="../../Coordinates_harris2010"><span>Co-ordinate and Positional Data</span></a></li>
+    <li><a href="../../Metallicity_harris2010"><span>Metallicity and Photometry</span></a></li>
+    <li><a href="../../Velocities_harris2010"><span>Velocities and Structural Parameters</span></a></li>
+    <li><a href="../../references/"><span>References</span></a></li>
+  </ul>
+
+</div>
+    <div class="col1">
+      <!-- Column 1 start -->
+      <h2>{{ reference }}</h2>
+      {% render_table references %}
+      <!-- Column 1 end -->
+    </div>
+<div id="footer">
+  <p> From left to right: (All distances in kpc and velocities in km/s)
+<br/>
+<br/>
+Cluster Identification name  <br/>
+Other commonly used cluster name; <br/>
+Right ascension and declination in degrees; <br/>
+Galactic longitude and latitude in degrees;  <br/>
+Distance from Sun; <br/>
+Distance from Galactic center, assuming R_0=8.0; <br/>
+Galactic distance components X,Y,Z, in a Sun-centered coordinate system where X points toward Galactic center, Y in direction of Galactic rotation,Z toward North Galactic Pole.
+<br/>
+<br/>
+Metallicity [Fe/H];   <br/>
+Weight of mean metallicity, essentially the number of independent [Fe/H] measurements averaged together;  <br/>
+Foreground reddening; <br/>
+ V magnitude level of the horizontal branch (or RR Lyraes);  <br/>
+Apparent visual distance modulus;  <br/>
+Integrated V magnitude of the cluster;  <br/>
+Absolute visual magnitude (cluster luminosity),  M_V,t = V_t - (m-M)V;  <br/>
+The 4 Integrated color indices (uncorrected for reddening);  <br/>
+Spectral type of the integrated cluster light;  <br/>
+Projected ellipticity of isophotes, e = 1-(b/a)
+<br/>
+<br/>
+Heliocentric radial velocity and its Observational (internal) uncertainty; <br/>
+Central velocity dispersion sig_v and its Observational (internal) uncertainty; <br/>
+Radial velocity relative to Solar neighborhood LSR; <br/>
+King-model central concentration, c = log(r_t/r_c); a 'c' denotes a core-collapsed cluster; <br/>
+Core radius in arcmin; <br/>
+Half-light radius in arcmin; <br/>
+Central surface brightness, V magnitudes per square arcsecond; <br/>
+Central luminosity density, log_10(Solar luminosities per cubic parsec); <br/>
+Core relaxation time t(r_c), in log_10(years); <br/>
+Median relaxation time t(r_h), in log_10(years)
+</p>
+
+</body>
+</html>
