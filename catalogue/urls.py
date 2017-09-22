@@ -1,9 +1,10 @@
 from django.conf.urls import url
-
+from django.contrib import admin
 from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^GCID(?P<cluster_id_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^references/$', views.references, name='references'),
     url(r'^view1/$', views.view1, name='view1'),

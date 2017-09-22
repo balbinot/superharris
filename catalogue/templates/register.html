@@ -4,11 +4,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-
-
-
 {% block title %}User Registration{% endblock %}
-{% block head %}User Registration{% endblock %}
 
 <head>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
@@ -21,11 +17,8 @@
     <div class="container">
       <div class="row">
         {% csrf_token %}
-
         {% crispy form %}
       </div>
     </div>
-    <input type="submit" value="register" />
-  </form>
 </body>
 {% endblock %}

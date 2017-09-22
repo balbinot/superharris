@@ -17,6 +17,8 @@
   <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="{% static 'screen.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <!--<body class="container-fluid">-->
 <body>
@@ -51,11 +53,17 @@
         <li class="{% if 'references' in request.path %}active{% endif %}"
         ><a href="/catalogue/references/">References</a></li>
 
-        {% if user.is_authenticated %}
-        <!--
+        {% if request.user.is_superuser %}
+        <li><a href="../admin/">Review</a></li>
+
+        <li class="{% if 'logout' in request.path %}active{% endif %}"
+        ><a href="/catalogue/logout/">Log out</a></li>
+
+        {% elif user.is_authenticated %}
+
         <li>
           <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class="btn btn-inverse dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               My Account
               <span class="caret"></span>
             </button>
@@ -66,7 +74,7 @@
             </ul>
           </div>
         </li>
-      ``-->
+        <!--
         <li class="{% if 'submit' in request.path %}active{% endif %}"
         ><a href="/catalogue/submit/">Submit observation</a></li>
 
@@ -75,13 +83,14 @@
 
         <li class="{% if 'logout' in request.path %}active{% endif %}"
         ><a href="/catalogue/logout/">Log out</a></li>
-
+`       -->`
         {% else %}
+        <li class="{% if 'register' in request.path %}active{% endif %}"
+        ><a href="/catalogue/register/">Register</a></li>
+
         <li class="{% if 'login' in request.path %}active{% endif %}"
         ><a href="/catalogue/login/">Log in</a></li>
 
-        <li class="{% if 'register' in request.path %}active{% endif %}"
-        ><a href="/catalogue/register/">Register</a></li>
         {% endif %}
 
       </ul>

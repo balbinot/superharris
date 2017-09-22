@@ -21,7 +21,7 @@ class ObservationTable(tables.Table):
     class Meta:
         model = Observation
 
-class UserObs(tables.Table):
+class UserObsTable(tables.Table):
     id = 'user_table'
     class Meta:
         model = Submitted
@@ -100,6 +100,7 @@ def login(request):
         return render(request, 'login.html', locals())
 
 def register(request):
+  print('Starting registration')
   if request.method == 'POST':
     form = RegistrationForm(request.POST)
     if form.is_valid():
@@ -109,6 +110,9 @@ def register(request):
         password=form.cleaned_data['password1']
       )
       return HttpResponseRedirect('../registered/')
+    else:
+        print('ARRRRG')
+
   else:
     form = RegistrationForm()
   return render(request, 'register.html', {'form': form})
@@ -134,6 +138,7 @@ def store_int(field, placeholder):
         placeholder = int(field)
 
 def submit(request):
+    print('HELLO ?')
     if request.method == 'POST':
         form = SubmitForm(request.POST)
         if form.is_valid():
@@ -192,8 +197,6 @@ def submit(request):
             model.comment = request.POST['comment']
 
             print('Model : {}'.format(model))
-            print(model.ra)
-            print(model.dec)
             model.save()
             return HttpResponseRedirect('../submitted/')
         else:
