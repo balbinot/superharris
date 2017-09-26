@@ -4,11 +4,19 @@
 {% load staticfiles %}
 {% block content %}
 
+<style>
+#table {
+  column-gap: 400px;
+  position:relative;
+  overflow:auto;
+}
+</style>
+
 <div class="col1">
       <!-- Column 1 start -->
       <h2>{{ reference }}</h2>
       <br/>
-      {% render_table references %}
+      <div id="table"> {% render_table references %}<div>
       <!-- Column 1 end -->
 
 </div>
