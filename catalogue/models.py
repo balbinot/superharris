@@ -112,6 +112,15 @@ class AllObservation(models.Model):
         return s
 
 class Submitted(models.Model):
+    VALIDATE = 1
+    ACCEPTED = 2
+    REJECTED = 3
+
+    STATUS_CHOICES = (
+        (VALIDATE, 'To be validated'),
+        (ACCEPTED, 'Accepted'),
+        (REJECTED, 'Rejected'),
+    )
 
     created_by = models.ForeignKey(User, null=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -177,6 +186,7 @@ class Submitted(models.Model):
     lg_th        = models.FloatField('Median relaxation time', null=True,
                                       blank=True)
     comment = models.CharField('Additional comments', max_length=64, null=True, blank=True)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=VALIDATE)
 
     def __str__(self):
         data = '{} - Ref : {}'.format(str(self.cluster_id), str(self.cluster_id))

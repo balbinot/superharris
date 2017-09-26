@@ -59,7 +59,7 @@ class OtherTable(tables.Table):
         model = AllObservation
         exclude = ('id', 'ref', 'metallicity', 'w_mean_met', 'FG_red', 'V_horiz', 'app_dist', 'Int_V_mag', 'm_v_t', 'ph_u_b', 'ph_b_v', 'ph_b_v', 'ph_v_r', 'ph_v_i', 'spec_type', 'ellipticity', 'ra', 'dec', 'gallon', 'gallat', 'dfs', 'dfgc', 'gc_x', 'gc_y', 'gc_z', 'name')
 
-class UserObs(tables.Table):
+class UserObsTable(tables.Table):
     id = 'user_table'
     class Meta:
         model = Submitted
@@ -142,6 +142,7 @@ def login(request):
         return render(request, 'login.html', locals())
 
 def register(request):
+  print('Starting registration')
   if request.method == 'POST':
     form = RegistrationForm(request.POST)
     if form.is_valid():
@@ -151,6 +152,9 @@ def register(request):
         password=form.cleaned_data['password1']
       )
       return HttpResponseRedirect('../registered/')
+    else:
+        print('ARRRRG')
+
   else:
     form = RegistrationForm()
   return render(request, 'register.html', {'form': form})
@@ -176,6 +180,7 @@ def store_int(field, placeholder):
         placeholder = int(field)
 
 def submit(request):
+    print('HELLO ?')
     if request.method == 'POST':
         form = SubmitForm(request.POST)
         if form.is_valid():
@@ -234,8 +239,6 @@ def submit(request):
             model.comment = request.POST['comment']
 
             print('Model : {}'.format(model))
-            print(model.ra)
-            print(model.dec)
             model.save()
             return HttpResponseRedirect('../submitted/')
         else:

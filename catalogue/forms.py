@@ -7,7 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from catalogue.models import Submitted
 from models import GlobularCluster as GC
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
+from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, Fieldset
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 
 #from crispy_forms.bootstrap import InlineField
@@ -33,32 +33,54 @@ class RegistrationForm(forms.Form):
     label='Password (Again)',
     widget=forms.PasswordInput()
   )
+
+  def clean_password(self):
+    if 'password1' in self.cleaned_data:
+        password1 = self.Cleaned_data['password1']
+        password2 = self.Cleaned_data['password2']
+    if password1 == password2:
+      return password2
+    raise forms.ValidationError('Passwords do not match.')
+
+  def clean_username(self):
+    username = self.cleaned_data['username']
+    if not re.search(r'^\w+$', username):
+      raise forms.ValidationError('Username can only contain alphanumeric characters and the underscore.')
+    try:
+        User.objects.get(username=username)
+    except ObjectDoesNotExist:
+      return username
+    raise forms.ValidationError('Username is already taken :( .')
+
   def __init__(self, *args, **kwargs):
       super(RegistrationForm, self).__init__(*args, **kwargs)
       self.helper = FormHelper()
-      self.helper.form_id = 'id-registerForm'
+      self.helper.form_id = 'id-registrationForm'
       self.helper.form_class = 'blueForms'
       self.helper.form_method = 'post'
-      self.helper.form_action = 'submit'
+      self.helper.form_action = 'register'
+      self.helper.form_class = 'form-horizontal'
+
+      self.fields['username'].widget.attrs['placeholder'] = u'Enter here'
+      self.fields['email'].widget.attrs['placeholder'] = u'Enter here'
+      self.fields['password1'].widget.attrs['placeholder'] = u'Enter here'
+      self.fields['password2'].widget.attrs['placeholder'] = u'Enter here'
+
+      self.helper.layout = Layout(
+          Div(
+              Div('username', css_class='col-xs-6'),
+          css_class='row-fluid'),
+          Div(
+              Div('email', css_class='col-xs-6'),
+          css_class='row-fluid'),
+          Div(
+              Div('password1', css_class='col-xs-6'),
+          css_class='row-fluid'),
+          Div(
+              Div('password2', css_class='col-xs-6'),
+          css_class='row-fluid'),
+          )
       self.helper.add_input(Submit('submit', 'Submit'))
-
-def clean_password(self):
-  if 'password1' in self.cleaned_data:
-      password1 = self.Cleaned_data['password1']
-      password2 = self.Cleaned_data['password2']
-  if password1 == password2:
-    return password2
-  raise forms.ValidationError('Passwords do not match.')
-
-def clean_username(self):
-  username = self.cleaned_data['username']
-  if not re.search(r'^\w+$', username):
-    raise forms.ValidationError('Username can only contain alphanumeric characters and the underscore.')
-  try:
-      User.objects.get(username=username)
-  except ObjectDoesNotExist:
-    return username
-  raise forms.ValidationError('Username is already taken :( .')
 
 class SubmitForm(forms.Form):
     gcs = GC.objects.all()
@@ -88,7 +110,7 @@ class SubmitForm(forms.Form):
     sp_r_h = forms.CharField(label = "Half-light radius", max_length=50, required=False)
     sp_mu_V = forms.CharField(label = "Central surface brightness", max_length=50, required=False)
     sp_rho_0 = forms.CharField(label = "Central luminosity density", max_length=50, required=False)
-    comment = forms.CharField(label = "Additional comments", max_length=50, widget=forms.Textarea, required=False)
+    comment = forms.CharField(label = "Comments", max_length=50, widget=forms.Textarea, required=False)
 
 
     def __init__(self, *args, **kwargs):
@@ -127,11 +149,12 @@ class SubmitForm(forms.Form):
         #self.helper.label_class = 'col-lg-2'
         #self.helper.field_class = 'col-lg-6'
         self.helper.layout = Layout(
-            Div(
+            Fieldset('Name and reference',
                 Div('cluster', css_class='col-xs-6'),
                 Div('name', css_class='col-xs-6'),
             css_class='row-fluid'),
-            Div(
+
+            Fieldset('Observational data',
                 Div('ra', css_class='col-xs-6'),
                 Div('dec', css_class='col-xs-6'),
             css_class='row-fluid'),
@@ -174,9 +197,8 @@ class SubmitForm(forms.Form):
             Div(
                 Div('sp_rho_0', css_class='col-xs-6'),
             css_class='row-fluid'),
-            Div(
+            Fieldset('Additional information',
                 Div('comment', css_class='col-xs-6'),
             css_class='row-fluid'),
             )
-
         self.helper.add_input(Submit('submit', 'Submit'))
