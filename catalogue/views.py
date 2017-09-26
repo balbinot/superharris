@@ -39,7 +39,6 @@ class HarrisTable(tables.Table):
         exclude = ('id', 'ref')
 
 class GeneralTable(tables.Table):
-    cluster_id = tables.LinkColumn('detail', args=[A('pk')])
     class Meta:
         model = AllObservation
         exclude = ('id', 'ref')
