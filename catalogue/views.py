@@ -17,6 +17,9 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 
+
+tblattr = {'class':'table table-striped'}
+
 class ObservationTable(tables.Table):
     class Meta:
         model = AllObservation
@@ -65,12 +68,12 @@ class UserObsTable(tables.Table):
 
 def index(request):
     reference =  get_object_or_404(Reference, pk=2)
-    table = HarrisTable(AllObservation.objects.filter(ref=reference))
+    table = HarrisTable(AllObservation.objects.filter(ref=reference), attrs=tblattr)
     return render(request, 'index.html', {'observations': table})
 
 
 def references(request):
-    table = ReferenceTable(Reference.objects.all())
+    table = ReferenceTable(Reference.objects.all(), attrs=tblattr)
     return render(request, 'references.html', {'references': table})
 
 def detail(request, cluster_id_id):
@@ -85,17 +88,17 @@ def ref_detail(request, name_id):
 
 def Harris_2010_coordinates(request):
      reference =  get_object_or_404(Reference, pk=2)
-     table = CoordinateTable(AllObservation.objects.filter(ref=reference))
+     table = CoordinateTable(AllObservation.objects.filter(ref=reference), attrs=tblattr)
      return render(request, 'view1.html', {'coordinates': table})
 
 def Harris_2010_metallicity(request):
      reference =  get_object_or_404(Reference, pk=2)
-     table = MetallicityTable(AllObservation.objects.filter(ref=reference))
+     table = MetallicityTable(AllObservation.objects.filter(ref=reference), attrs=tblattr)
      return render(request, 'view2.html', {'metallicity' : table})
 
 def Harris_2010_velocities(request):
      reference =  get_object_or_404(Reference, pk=2)
-     table = OtherTable(AllObservation.objects.filter(ref=reference))
+     table = OtherTable(AllObservation.objects.filter(ref=reference), attrs=tblattr)
      return render(request, 'view3.html', {'velocities' : table})
 
 def user_account(request):

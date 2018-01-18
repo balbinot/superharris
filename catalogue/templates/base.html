@@ -1,5 +1,6 @@
 {% load static %}
 {% load staticfiles %}
+{% load bootstrap_themes %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
@@ -9,16 +10,10 @@
   <meta name="description" content=""/>
   <meta name="keywords" content="" />
   <meta name="robots" content="index, follow" />
-  <!--<link rel="stylesheet" type="text/css" href="static/screen.css" media="screen" />
-  <link rel="stylesheet" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
-  <link type="stylesheet" rel="stylesheet" href="{% static 'submit.css' %}" /> -->
-  <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
-  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
-  <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+  {% bootstrap_styles theme='default' type='min.css' %}
+  {% bootstrap_script use_min=True %}
   <link rel="stylesheet" type="text/css" href="{% static 'screen.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <!--<body class="container-fluid">-->
 <body>
@@ -35,23 +30,28 @@
       {% endif %}
     </div>
   </div>
+
 <div class="container-fluid">
-<div id="navbar">
+<div id="navbar" id="navbarColor01">
   <nav class="navbar navbar-inverse navbar-default">
-      <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav">
         <li><a href="/catalogue/">Home</a></li>
 
-        <li class="{% if 'Harris_2010_coordinates' in request.path %}active{% endif %}"
-        ><a href="/catalogue/Coordinates_harris2010">Co-ordinate and Positional Data</a></li>
+        <li class="{% if request.resolver_match.url_name == "Harris_2010_coordinates" %}active{% endif %}">
+          <a href="{% url "Harris_2010_coordinates" %}">Position</a>
+        </li>
 
-        <li class="{% if 'Harris_2010_metallicity' in request.path %}active{% endif %}"
-        ><a href="/catalogue/Metallicity_harris2010">Metallicity and Photometry</a></li>
+        <li class="{% if request.resolver_match.url_name == "Harris_2010_velocities"%}active{% endif %}">
+          <a href="{% url "Harris_2010_velocities" %}">Kinematics</a>
+        </li>
 
-        <li class="{% if 'Harris_2010_velocities' in request.path %}active{% endif %}"
-        ><a href="/catalogue/Velocities_harris2010">Velocities and Structural Parameters</a></li>
+        <li class="{% if request.resolver_match.url_name == "Harris_2010_metallicity"%}active{% endif %}">
+          <a href="{% url "Harris_2010_metallicity" %}">Chemical</a>
+        </li>
 
-        <li class="{% if 'references' in request.path %}active{% endif %}"
-        ><a href="/catalogue/references/">References</a></li>
+        <li class="{% if request.resolver_match.url_name == "references" %}active{% endif %}">
+          <a href="{% url "references" %}">References</a>
+        </li>
 
         {% if request.user.is_superuser %}
         <li><a href="../admin/">Review</a></li>
@@ -74,16 +74,7 @@
             </ul>
           </div>
         </li>
-        <!--
-        <li class="{% if 'submit' in request.path %}active{% endif %}"
-        ><a href="/catalogue/submit/">Submit observation</a></li>
 
-        <li class="{% if 'account' in request.path %}active{% endif %}"
-        ><a href="/catalogue/account/">My Account</a></li>
-
-        <li class="{% if 'logout' in request.path %}active{% endif %}"
-        ><a href="/catalogue/logout/">Log out</a></li>
-`       -->`
         {% else %}
         <li class="{% if 'register' in request.path %}active{% endif %}"
         ><a href="/catalogue/register/">Register</a></li>
